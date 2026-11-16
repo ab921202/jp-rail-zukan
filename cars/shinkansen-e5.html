@@ -1,1 +1,70 @@
-<!-- placeholder -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E5 系（E5系） — 日本鐵道車輛圖鑑</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+<a class="back-link" href="../index.html">← 返回首頁</a>
+</header>
+<main>
+<h1>E5 系（E5系）</h1>
+<div class="car-color-block" data-car-id="shinkansen-e5">E5系</div>
+<table>
+  <tbody>
+    <tr>
+      <th>分類</th>
+      <td>新幹線</td>
+    </tr>
+    <tr>
+      <th>所屬公司</th>
+      <td>JR東日本</td>
+    </tr>
+    <tr>
+      <th>主要路線</th>
+      <td>東北新幹線</td>
+    </tr>
+    <tr>
+      <th>編成輛數</th>
+      <td>10 輛編成</td>
+    </tr>
+    <tr>
+      <th>最高速度</th>
+      <td>320 km/h</td>
+    </tr>
+    <tr>
+      <th>製造年份</th>
+      <td>2009 年起（2011 年投入營運）</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>外觀特徵</h2>
+<p>E5 系車頭採用長達 15 m 的流線型長車鼻設計，能有效減緩列車高速駛入隧道時產生的微氣壓波與噪音。車身塗裝以上半部「常盤綠」搭配下半部「飛雲白」，中央再以「杜鵑粉紅」色帶貫穿全車，呈現鮮明且富有速度感的視覺風格。先頭車側面後方繪有以隼鳥為意象的金色標誌，象徵高速奔馳於東北大地的主力列車形象。車體下方配備包覆轉向架的側裙與吸音材，搭配低噪音集電弓，大幅降低高速行駛時的空氣阻力與噪音。</p>
+
+<h2>小知識</h2>
+<ul>
+  <li>E5 系於 2011 年以「隼號」列車投入營運，並自 2013 年起在東北新幹線宇都宮至盛岡區間實現 320 km/h 的日本國內最高營運速度。</li>
+  <li>本車型首度在新幹線引進比綠色車廂更高級的「Gran Class」特等車廂，每節車廂僅配置 18 個電動可調式真皮座椅，提供媲美航空頭等艙的乘坐體驗。</li>
+</ul>
+</main>
+<footer>© 日本鐵道車輛圖鑑</footer>
+<script src="../assets/data.js"></script>
+<script>
+(() => {
+const cars = typeof CARS !== "undefined" ? CARS : [];
+const colorBlock = document.querySelector(".car-color-block");
+if (!colorBlock) return;
+
+const carId = colorBlock.dataset.carId;
+const car = cars.find((item) => item.id === carId);
+if (car && car.color) {
+colorBlock.style.backgroundColor = car.color;
+}
+})();
+</script>
+</body>
+</html>
