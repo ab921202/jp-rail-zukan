@@ -3,43 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E233 系 - 日本鐵道車輛圖鑑</title>
+  <title>E233 系 — 日本鐵道車輛圖鑑</title>
   <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
-  <header>
-    <a href="../index.html">← 返回首頁</a>
+  <header class="site-header">
+    <a class="back-link" href="../index.html">← 返回首頁</a>
   </header>
 
-  <h1>E233 系（E233系）</h1>
+  <main>
+    <h1>E233 系（E233系）</h1>
+    <div class="car-color-block" data-car-id="commuter-e233">E233系</div>
 
-  <div class="color-block" data-car="commuter-e233">E233</div>
+    <table>
+      <tbody>
+        <tr><th>分類</th><td>通勤型</td></tr>
+        <tr><th>所屬公司</th><td>JR東日本</td></tr>
+        <tr><th>主要路線</th><td>中央線快速</td></tr>
+        <tr><th>編成輛數</th><td>10 輛編成 / 6+4 輛</td></tr>
+        <tr><th>最高速度</th><td>120 km/h</td></tr>
+        <tr><th>製造年份</th><td>2006 年</td></tr>
+      </tbody>
+    </table>
 
-  <table class="spec-table">
-    <tr><th>分類</th><td>通勤型</td></tr>
-    <tr><th>所屬公司</th><td>JR東日本</td></tr>
-    <tr><th>主要路線</th><td>中央線快速</td></tr>
-    <tr><th>編成輛數</th><td>10 輛</td></tr>
-    <tr><th>最高速度</th><td>120 km/h</td></tr>
-    <tr><th>製造年份</th><td>2006 年</td></tr>
-  </table>
+    <h2>外觀特徵</h2>
+    <p>E233 系是 JR 東日本使用最廣泛的通勤型電車之一。以中央線快速的 0 番台為例，車體採用不鏽鋼材質，並以中央線代表性的「朱色（Orange）」作為車體側面的腰帶。車頭設計承襲了 E231 系的風格，但在細節上更為洗鍊，並配備了 LED 行先指示器。車內設有資訊顯示器，並擴大了優先席的空間。</p>
 
-  <h2>外觀特徵</h2>
-  <p>E233 系 0 番台是中央線快速首款不鏽鋼車體，車身環繞中央線象徵色的「橙朱紅（Orange Vermilion）」色帶，銀色不鏽鋼車體搭配鮮明橘色，辨識度極高。</p>
-  <p>車體寬度較前代 201 系更寬，外觀輪廓以 E531 系為基礎，給人沉穩而現代的通勤電車印象。</p>
-  <p>車頭正面配置大型擋風玻璃與目的地 LED 顯示器，側面設有車外揚聲器，可在未設置發車音樂的車站輔助廣播。</p>
-  <p>整體設計融入「ゆとり」（寬裕感）概念，從用戶問卷回饋出發，在有限的通勤空間中追求更舒適的視覺與乘坐感受。</p>
+    <h2>小知識</h2>
+    <ul>
+      <li>E233 系有非常多種番台，分別對應中央線、京濱東北線、常磐線、橫濱線等不同路線，每條路線都有專屬的顏色腰帶。</li>
+      <li>中央線快速的 E233 系 0 番台在投入營運時，率先導入了「女性專用車廂」與「車內防犯攝影機」，成為 JR 東日本的安全指標。</li>
+    </ul>
+  </main>
 
-  <h2>小知識</h2>
-  <ul>
-    <li>E233 系自 2006 年 12 月開始在中央線快速營運，後續衍生多種番台，總產量超過 3,000 輛，是 JR 東日本產量最大的通勤型電車系列之一。</li>
-    <li>本系列大量採用通用設計，包括降低優先席區域的吊環與行李架高度、明確標示優先席區塊，並在車內設置空氣清淨機與充實的液晶／全彩 LED 資訊顯示。</li>
-  </ul>
-
-  <footer>
-    <p>© 日本鐵道車輛圖鑑</p>
-  </footer>
+  <footer>© 日本鐵道車輛圖鑑</footer>
 
   <script src="../assets/data.js"></script>
+  <script>
+    (() => {
+      const carId = document.querySelector(".car-color-block").dataset.carId;
+      const car = CARS.find((item) => item.id === carId);
+      if (car) {
+        document.querySelector(".car-color-block").style.backgroundColor = car.color;
+      }
+    })();
+  </script>
 </body>
 </html>
