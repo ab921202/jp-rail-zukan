@@ -2,9 +2,7 @@ const CATEGORIES = {
   shinkansen: { label: "新幹線", color: "#2563eb" },
   commuter: { label: "通勤型", color: "#16a34a" },
   "limited-express": { label: "特急型", color: "#ea580c" },
-  // 預留分類（尚未啟用）：
-  // subway: { label: "地下鉄", color: "#7c3aed" },
-  // private: { label: "私鉄", color: "#db2777" },
+  
 };
 
 const CARS = [ { id: "shinkansen-e5", name: "E5 系", nameJa: "E5系", category:
