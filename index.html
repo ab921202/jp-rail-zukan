@@ -9,6 +9,7 @@
 <body>
   <header>
     <h1>日本鐵道車輛圖鑑</h1>
+    <p class="subtitle">收錄新幹線、通勤型與特急型的日本鐵道車輛資料</p>
   </header>
 
   <main>
@@ -88,27 +89,27 @@
           card.href = "cars/" + car.id + ".html";
 
           const colorBlock = document.createElement("div");
-          colorBlock.className = "car-color";
+          colorBlock.className = "car-card-color"; /* 對齊 style.css */
           colorBlock.textContent = car.nameJa;
           colorBlock.style.backgroundColor = car.color;
 
           const body = document.createElement("div");
-          body.className = "car-body";
+          body.className = "car-card-body"; /* 對齊 style.css */
 
-          const title = document.createElement("h2");
-          title.className = "car-name";
+          const title = document.createElement("h3"); /* 改用 h3 */
+          title.className = "car-card-title"; /* 對齊 style.css */
           title.textContent = car.name;
 
           const meta = document.createElement("div");
-          meta.className = "car-meta";
+          meta.className = "car-card-meta"; /* 對齊 style.css */
 
           const categoryBadge = document.createElement("span");
-          categoryBadge.className = "badge";
+          categoryBadge.className = "category-badge"; /* 對齊 style.css */
           const categoryData = categories[car.category];
           categoryBadge.textContent = categoryData && categoryData.label ? categoryData.label : car.category;
 
           const operator = document.createElement("span");
-          operator.className = "car-operator";
+          operator.className = "car-card-operator"; /* 對齊 style.css */
           operator.textContent = car.operator;
 
           meta.appendChild(categoryBadge);
