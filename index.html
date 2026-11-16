@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本鐵道車輛圖鑑</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header">
+<h1>日本鐵道車輛圖鑑</h1>
+<p class="subtitle">收錄新幹線、通勤型與特急型的日本鐵道車輛資料</p>
+</header>
+<main>
+<div class="filter-bar" id="filter-bar" role="group" aria-label="車型分類篩選"></div>
+<div class="car-grid" id="car-grid"></div>
+</main>
+<footer>© 日本鐵道車輛圖鑑</footer>
+<script src="assets/data.js"></script>
+<script>
+(() => {
+const categories = typeof CATEGORIES !== "undefined" ? CATEGORIES : {};
+const cars = typeof CARS !== "undefined" ? CARS : [];
+
+const filterBar = document.getElementById("filter-bar");
+const carGrid = document.getElementById("car-grid");
+
+let activeCategory = "all";
+
+function createFilterButton(key, label) {
+const btn = document.createElement("button");
+btn.type = "button";
+btn.className = "filter-btn";
+btn.dataset.category = key;
+btn.textContent = label;
+
+const isActive = activeCategory === key;
+if (isActive) {
+btn.classList.add("active");
+}
+btn.setAttribute("aria-pressed", String(isActive));
+
+btn.addEventListener("click", () => {
+activeCategory = key;
+updateFilterButtons();
+renderCars();
+});
+
+return btn;
+}
+
+function renderFilterButtons() {
+filterBar.innerHTML = "";
+filterBar.appendChild(createFilterButton("all", "全部"));
+
+Object.entries(categories).forEach(([key, info]) => {
+filterBar.appendChild(createFilterButton(key, info.label));
+});
+}
+
+function updateFilterButtons() {
+const buttons = filterBar.querySelectorAll(".filter-btn");
+buttons.forEach((btn) => {
+const isActive = btn.dataset.category === activeCategory;
+btn.classList.toggle("active", isActive);
+btn.setAttribute("aria-pressed", String(isActive));
+});
+}
+
+function renderCars() {
+carGrid.innerHTML = "";
+
+const filteredCars = activeCategory === "all"
+? cars
+: cars.filter((car) => car.category === activeCategory);
+
+if (filteredCars.length === 0) {
+const emptyMessage = document.createElement("p");
+emptyMessage.className = "empty-message";
+emptyMessage.textContent = "目前沒有符合的車型";
+carGrid.appendChild(emptyMessage);
+return;
+}
+
+filteredCars.forEach((car) => {
+const card = document.createElement("a");
+card.className = "car-card";
+card.href = `cars/${car.id}.html`;
+
+const colorBlock = document.createElement("div");
+colorBlock.className = "car-card-color";
+colorBlock.textContent = car.nameJa;
+colorBlock.style.backgroundColor = car.color;
+
+const body = document.createElement("div");
+body.className = "car-card-body";
+
+const title = document.createElement("h3");
+title.className = "car-card-title";
+title.textContent = car.name;
+
+const meta = document.createElement("div");
+meta.className = "car-card-meta";
+
+const badge = document.createElement("span");
+badge.className = "category-badge";
+badge.textContent = categories[car.category]
+? categories[car.category].label
+: car.category;
+
+const operator = document.createElement("span");
+operator.className = "car-card-operator";
+operator.textContent = car.operator;
+
+meta.appendChild(badge);
+meta.appendChild(operator);
+
+body.appendChild(title);
+body.appendChild(meta);
+
+card.appendChild(colorBlock);
+card.appendChild(body);
+
+carGrid.appendChild(card);
+});
+}
+
+renderFilterButtons();
+renderCars();
+})();
+</script>
+</body>
+</html>
