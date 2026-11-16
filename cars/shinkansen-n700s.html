@@ -3,43 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>N700S - 日本鐵道車輛圖鑑</title>
+  <title>N700S — 日本鐵道車輛圖鑑</title>
   <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
-  <header>
-    <a href="../index.html">← 返回首頁</a>
+  <header class="site-header">
+    <a class="back-link" href="../index.html">← 返回首頁</a>
   </header>
 
-  <h1>N700S（N700S系）</h1>
+  <main>
+    <h1>N700S（N700S系）</h1>
+    <div class="car-color-block" data-car-id="shinkansen-n700s">N700S</div>
 
-  <div class="color-block" data-car="shinkansen-n700s">N700S</div>
+    <table>
+      <tbody>
+        <tr><th>分類</th><td>新幹線</td></tr>
+        <tr><th>所屬公司</th><td>JR東海</td></tr>
+        <tr><th>主要路線</th><td>東海道新幹線</td></tr>
+        <tr><th>編成輛數</th><td>16 輛編成</td></tr>
+        <tr><th>最高速度</th><td>360 km/h（營業 285 km/h）</td></tr>
+        <tr><th>製造年份</th><td>2020 年</td></tr>
+      </tbody>
+    </table>
 
-  <table class="spec-table">
-    <tr><th>分類</th><td>新幹線</td></tr>
-    <tr><th>所屬公司</th><td>JR東海</td></tr>
-    <tr><th>主要路線</th><td>東海道新幹線</td></tr>
-    <tr><th>編成輛數</th><td>16 輛</td></tr>
-    <tr><th>最高速度</th><td>360 km/h（營業 285 km/h）</td></tr>
-    <tr><th>製造年份</th><td>2020 年</td></tr>
-  </table>
+    <h2>外觀特徵</h2>
+    <p>N700S 採用進化版的「Dual Supreme Wing」車頭造型，兩側帶有銳利稜線，能有效抑制進入隧道時產生的微氣壓波。車身側面設有象徵「Supreme」的「S」標誌，明確標示這是 N700 系家族的最新進化版本。全車配備低噪音單臂受電弓，並採用 SiC 功率半導體的 VVVF 變流器控制，在高速行駛下兼顧靜肅性與能源效率。先頭車正面與側面輪廓較 N700 系更為簡潔銳利。</p>
 
-  <h2>外觀特徵</h2>
-  <p>N700S 採用進化版的「Dual Supreme Wing」車頭造型，兩側帶有銳利稜線，能有效抑制進入隧道時產生的微氣壓波，車頭長度達 10.7 公尺。</p>
-  <p>車身側面設有象徵「Supreme」的「S」標誌，明確標示這是 N700 系家族的最新進化版本。</p>
-  <p>全車配備低噪音單臂受電弓，並採用 SiC 功率半導體的 VVVF 變流器控制，在高速行駛下兼顧靜肅性與能源效率。</p>
-  <p>先頭車正面與側面輪廓較 N700 系更為簡潔銳利，給人「次世代新幹線」的科技感。</p>
+    <h2>小知識</h2>
+    <ul>
+      <li>N700S 的「S」代表「Supreme」（至高無上），是 JR 東海自 300 系以來再度單獨開發的新幹線車型。</li>
+      <li>雖然營業最高速度維持 285 km/h，但 N700S 的設計最高速度可達 360 km/h，為未來提速預留了空間。</li>
+    </ul>
+  </main>
 
-  <h2>小知識</h2>
-  <ul>
-    <li>N700S 的「S」代表「Supreme」（至高無上），是 JR 東海自 300 系以來再度單獨開發的新幹線車型，目標是成為可對應 8 輛、12 輛、16 輛等各種編成的「標準車輛」。</li>
-    <li>雖然營業最高速度維持東海道 285 km/h、山陽 300 km/h，但 N700S 的設計最高速度可達 360 km/h，為未來提速預留了技術餘裕。</li>
-  </ul>
-
-  <footer>
-    <p>© 日本鐵道車輛圖鑑</p>
-  </footer>
+  <footer>© 日本鐵道車輛圖鑑</footer>
 
   <script src="../assets/data.js"></script>
+  <script>
+    (() => {
+      const carId = document.querySelector(".car-color-block").dataset.carId;
+      const car = CARS.find((item) => item.id === carId);
+      if (car) {
+        document.querySelector(".car-color-block").style.backgroundColor = car.color;
+      }
+    })();
+  </script>
 </body>
 </html>
