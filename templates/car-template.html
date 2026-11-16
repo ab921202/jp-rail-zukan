@@ -1,1 +1,81 @@
-<!-- placeholder -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 以下請依車型填入 -->
+  <title>E5 系（E5系） — 日本鐵道車輛圖鑑</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="../index.html">← 返回首頁</a>
+  </header>
+
+  <main>
+    <!-- 以下請依車型填入：車名與代表色塊（data-car-id 須對應 data.js 中的 id） -->
+    <h1>E5 系（E5系）</h1>
+    <div class="car-color-block" data-car-id="shinkansen-e5">E5系</div>
+
+    <!-- 以下請依車型填入：基本資料 -->
+    <table>
+      <tbody>
+        <tr>
+          <th scope="row">分類</th>
+          <td>新幹線</td>
+        </tr>
+        <tr>
+          <th scope="row">所屬公司</th>
+          <td>JR東日本</td>
+        </tr>
+        <tr>
+          <th scope="row">主要路線</th>
+          <td>東北新幹線</td>
+        </tr>
+        <tr>
+          <th scope="row">編成輛數</th>
+          <td>10 輛編成</td>
+        </tr>
+        <tr>
+          <th scope="row">最高速度</th>
+          <td>320 km/h</td>
+        </tr>
+        <tr>
+          <th scope="row">製造年份</th>
+          <td>2011 年</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 以下請依車型填入：外觀特徵（3～5 句） -->
+    <h2>外觀特徵</h2>
+    <p>E5 系的車頭採用長達約 15 公尺的流線型長鼻設計，能有效降低高速進出隧道時產生的微氣壓波噪音。車身上半部塗裝採用象徵自然與常綠意象的「常盤綠」，下半部則搭配潔淨的「飛雲白」。兩種色彩之間以一條鮮明的「杜鵑粉紅」色帶區隔，展現出極具速度感的現代外型。此外，轉向架外罩與低噪音集電弓等空力設計，也讓列車外觀更為簡潔俐落。</p>
+
+    <!-- 以下請依車型填入：小知識（1～2 條） -->
+    <h2>小知識</h2>
+    <ul>
+      <li>E5 系自 2013 年起於東北新幹線宇都宮至盛岡區間實現 320 km/h 的營業最高速度，創下日本新幹線營運最快紀錄之一，並曾榮獲 2012 年鐵道友之會藍絲帶獎。</li>
+      <li>列車第 10 號車廂首度導入比綠色車廂更高階的「GranClass」特等車廂；而由 JR 北海道引進的同型兄弟車則稱為 H5 系，車身色帶改為薰衣草紫色。</li>
+    </ul>
+  </main>
+
+  <footer>© 日本鐵道車輛圖鑑</footer>
+
+  <script src="../assets/data.js"></script>
+  <script>
+    (function () {
+      const colorBlock = document.querySelector(".car-color-block");
+      if (!colorBlock || typeof CARS === "undefined") {
+        return;
+      }
+      const fileId = window.location.pathname.split("/").pop().replace(/\.html$/i, "");
+      const car =
+        CARS.find((item) => item.id === fileId) ||
+        CARS.find((item) => item.id === colorBlock.dataset.carId);
+      if (car) {
+        colorBlock.style.backgroundColor = car.color;
+      }
+    })();
+  </script>
+</body>
+</html>
