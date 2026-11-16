@@ -1,133 +1,132 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>日本鐵道車輛圖鑑</title>
-<link rel="stylesheet" href="assets/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日本鐵道車輛圖鑑</title>
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header class="site-header">
-<h1>日本鐵道車輛圖鑑</h1>
-<p class="subtitle">收錄新幹線、通勤型與特急型的日本鐵道車輛資料</p>
-</header>
-<main>
-<div class="filter-bar" id="filter-bar" role="group" aria-label="車型分類篩選"></div>
-<div class="car-grid" id="car-grid"></div>
-</main>
-<footer>© 日本鐵道車輛圖鑑</footer>
-<script src="assets/data.js"></script>
-<script>
-(() => {
-const categories = typeof CATEGORIES !== "undefined" ? CATEGORIES : {};
-const cars = typeof CARS !== "undefined" ? CARS : [];
+  <header>
+    <h1>日本鐵道車輛圖鑑</h1>
+  </header>
 
-const filterBar = document.getElementById("filter-bar");
-const carGrid = document.getElementById("car-grid");
+  <main>
+    <div class="filter-bar" id="filter-bar" role="group" aria-label="車輛分類篩選"></div>
+    <div class="car-grid" id="car-grid"></div>
+  </main>
 
-let activeCategory = "all";
+  <footer>
+    <p>© 日本鐵道車輛圖鑑</p>
+  </footer>
 
-function createFilterButton(key, label) {
-const btn = document.createElement("button");
-btn.type = "button";
-btn.className = "filter-btn";
-btn.dataset.category = key;
-btn.textContent = label;
+  <script src="assets/data.js"></script>
+  <script>
+    (function () {
+      const filterBar = document.getElementById("filter-bar");
+      const carGrid = document.getElementById("car-grid");
+      const categories = typeof CATEGORIES !== "undefined" ? CATEGORIES : {};
+      const cars = typeof CARS !== "undefined" ? CARS : [];
+      let currentCategory = "all";
 
-const isActive = activeCategory === key;
-if (isActive) {
-btn.classList.add("active");
-}
-btn.setAttribute("aria-pressed", String(isActive));
+      function createFilterButton(key, label, isActive) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = isActive ? "filter-btn active" : "filter-btn";
+        button.dataset.category = key;
+        button.textContent = label;
+        button.addEventListener("click", function () {
+          currentCategory = key;
+          updateActiveButton();
+          renderCars();
+        });
+        return button;
+      }
 
-btn.addEventListener("click", () => {
-activeCategory = key;
-updateFilterButtons();
-renderCars();
-});
+      function updateActiveButton() {
+        const buttons = filterBar.querySelectorAll(".filter-btn");
+        buttons.forEach(function (btn) {
+          if (btn.dataset.category === currentCategory) {
+            btn.classList.add("active");
+          } else {
+            btn.classList.remove("active");
+          }
+        });
+      }
 
-return btn;
-}
+      function renderFilters() {
+        filterBar.innerHTML = "";
+        filterBar.appendChild(createFilterButton("all", "全部", true));
 
-function renderFilterButtons() {
-filterBar.innerHTML = "";
-filterBar.appendChild(createFilterButton("all", "全部"));
+        Object.keys(categories).forEach(function (key) {
+          const categoryInfo = categories[key];
+          const label = categoryInfo && categoryInfo.label ? categoryInfo.label : key;
+          filterBar.appendChild(createFilterButton(key, label, false));
+        });
+      }
 
-Object.entries(categories).forEach(([key, info]) => {
-filterBar.appendChild(createFilterButton(key, info.label));
-});
-}
+      function renderCars() {
+        carGrid.innerHTML = "";
 
-function updateFilterButtons() {
-const buttons = filterBar.querySelectorAll(".filter-btn");
-buttons.forEach((btn) => {
-const isActive = btn.dataset.category === activeCategory;
-btn.classList.toggle("active", isActive);
-btn.setAttribute("aria-pressed", String(isActive));
-});
-}
+        const filteredCars = currentCategory === "all"
+          ? cars
+          : cars.filter(function (car) {
+              return car.category === currentCategory;
+            });
 
-function renderCars() {
-carGrid.innerHTML = "";
+        if (filteredCars.length === 0) {
+          const emptyMessage = document.createElement("p");
+          emptyMessage.className = "empty-message";
+          emptyMessage.textContent = "目前沒有符合的車型";
+          carGrid.appendChild(emptyMessage);
+          return;
+        }
 
-const filteredCars = activeCategory === "all"
-? cars
-: cars.filter((car) => car.category === activeCategory);
+        filteredCars.forEach(function (car) {
+          const card = document.createElement("a");
+          card.className = "car-card";
+          card.href = "cars/" + car.id + ".html";
 
-if (filteredCars.length === 0) {
-const emptyMessage = document.createElement("p");
-emptyMessage.className = "empty-message";
-emptyMessage.textContent = "目前沒有符合的車型";
-carGrid.appendChild(emptyMessage);
-return;
-}
+          const colorBlock = document.createElement("div");
+          colorBlock.className = "car-color";
+          colorBlock.textContent = car.nameJa;
+          colorBlock.style.backgroundColor = car.color;
 
-filteredCars.forEach((car) => {
-const card = document.createElement("a");
-card.className = "car-card";
-card.href = `cars/${car.id}.html`;
+          const body = document.createElement("div");
+          body.className = "car-body";
 
-const colorBlock = document.createElement("div");
-colorBlock.className = "car-card-color";
-colorBlock.textContent = car.nameJa;
-colorBlock.style.backgroundColor = car.color;
+          const title = document.createElement("h2");
+          title.className = "car-name";
+          title.textContent = car.name;
 
-const body = document.createElement("div");
-body.className = "car-card-body";
+          const meta = document.createElement("div");
+          meta.className = "car-meta";
 
-const title = document.createElement("h3");
-title.className = "car-card-title";
-title.textContent = car.name;
+          const categoryBadge = document.createElement("span");
+          categoryBadge.className = "badge";
+          const categoryData = categories[car.category];
+          categoryBadge.textContent = categoryData && categoryData.label ? categoryData.label : car.category;
 
-const meta = document.createElement("div");
-meta.className = "car-card-meta";
+          const operator = document.createElement("span");
+          operator.className = "car-operator";
+          operator.textContent = car.operator;
 
-const badge = document.createElement("span");
-badge.className = "category-badge";
-badge.textContent = categories[car.category]
-? categories[car.category].label
-: car.category;
+          meta.appendChild(categoryBadge);
+          meta.appendChild(operator);
 
-const operator = document.createElement("span");
-operator.className = "car-card-operator";
-operator.textContent = car.operator;
+          body.appendChild(title);
+          body.appendChild(meta);
 
-meta.appendChild(badge);
-meta.appendChild(operator);
+          card.appendChild(colorBlock);
+          card.appendChild(body);
 
-body.appendChild(title);
-body.appendChild(meta);
+          carGrid.appendChild(card);
+        });
+      }
 
-card.appendChild(colorBlock);
-card.appendChild(body);
-
-carGrid.appendChild(card);
-});
-}
-
-renderFilterButtons();
-renderCars();
-})();
-</script>
+      renderFilters();
+      renderCars();
+    })();
+  </script>
 </body>
 </html>
