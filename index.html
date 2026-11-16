@@ -25,9 +25,15 @@
     (function () {
       const filterBar = document.getElementById("filter-bar");
       const carGrid = document.getElementById("car-grid");
-      const categories = typeof CATEGORIES !== "undefined" ? CATEGORIES : {};
-      const cars = typeof CARS !== "undefined" ? CARS : [];
       let currentCategory = "all";
+
+      function getCategories() {
+        return typeof CATEGORIES !== "undefined" && CATEGORIES !== null ? CATEGORIES : {};
+      }
+
+      function getCars() {
+        return typeof CARS !== "undefined" && Array.isArray(CARS) ? CARS : [];
+      }
 
       function createFilterButton(key, label, isActive) {
         const button = document.createElement("button");
@@ -55,17 +61,25 @@
       }
 
       function renderFilters() {
+        const categories = getCategories();
         filterBar.innerHTML = "";
         filterBar.appendChild(createFilterButton("all", "全部", true));
 
         Object.keys(categories).forEach(function (key) {
+          if (!Object.prototype.hasOwnProperty.call(categories, key)) {
+            return;
+          }
           const categoryInfo = categories[key];
-          const label = categoryInfo && categoryInfo.label ? categoryInfo.label : key;
-          filterBar.appendChild(createFilterButton(key, label, false));
+          if (!categoryInfo || typeof categoryInfo.label !== "string" || !categoryInfo.label.trim()) {
+            return;
+          }
+          filterBar.appendChild(createFilterButton(key, categoryInfo.label, false));
         });
       }
 
       function renderCars() {
+        const categories = getCategories();
+        const cars = getCars();
         carGrid.innerHTML = "";
 
         const filteredCars = currentCategory === "all"
@@ -104,7 +118,9 @@
 
           const categoryBadge = document.createElement("span");
           categoryBadge.className = "badge";
-          const categoryData = categories[car.category];
+          const categoryData = Object.prototype.hasOwnProperty.call(categories, car.category)
+            ? categories[car.category]
+            : null;
           categoryBadge.textContent = categoryData && categoryData.label ? categoryData.label : car.category;
 
           const operator = document.createElement("span");
